@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TableController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+        <div id="content" class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">Les Avis</h2>
+        <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>gout</th>
+                        <th>diversité</th>
+                        <th>Chaleur</th>
+                        <th>Disponibilite</th>
+                        <th>Proprete</th>
+                        <th>Acceuil</th>
+                        <th>Commentaires</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for avis in Avis %}
+                    <tr>
+                        <td>{{ avis.id }}</td>
+                        <td>{{ avis.gout }}</td>
+                        <td>{{ avis.diversite }}</td>
+                        <td>{{ avis.chaleur }}</td>
+                        <td>{{ avis.disponibilite }}</td>
+                        <td>{{ avis.proprete }}</td>
+                        <td>{{ avis.acceuil }}</td>
+                        <td>{{ avis.commentaire }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+
+{% endblock %}
