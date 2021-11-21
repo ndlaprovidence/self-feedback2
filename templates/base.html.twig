@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('app') }}#}
+        {% endblock %}
+
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+    </head>
+    <body>
+    <ul class="navbar-nav">
+              {% if is_granted('ROLE_ADMIN') %}
+                <li>
+                  <div class="nav-link disabled">
+                    <i class="fas fa-user"></i>
+                    {% if app.user %}
+                      <strong>{{ app.user.username }}</strong>
+                    {% endif %}
+                    <strong>{{ app.user.username }}</strong>
+                  </div>
+                </li>
+                <li>
+                  <a class="nav-link" href="{{ path('app_logout') }}">{{'Logout'|trans}}</a>
+                </li>
+              {% else %}
+                <li>
+                  <a class="nav-link" href="{{ path('app_login') }}">{{'Sign in'|trans}}</a>
+                </li>
+              {% endif %}
+            </ul>
+
+        {% block body %}{% endblock %}
+    </body>
+</html>
