@@ -39,7 +39,10 @@
 	            <a href="/table"><span class="fa fa-user mr-3"></span> Avis</a>
 	          </li>
 	          <li>
-              <a href="#"><span class="fa fa-briefcase mr-3"></span> Ajouter</a>
+              <a href="/user"><span class="fa fa-briefcase mr-3"></span> Ajouter Utilisateur</a>
+	          </li>
+            	          <li>
+              <a href=""><span class="fa fa-briefcase mr-3"></span> Ajouter Champs Avis</a>
 	          </li>
 	          <li>
               <a href="#"><span class="fa fa-sticky-note mr-3"></span> Graphique</a>
@@ -53,7 +56,9 @@
 						  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
 						  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
 	        </div>
-
+  
+                  <a class="btn btn-danger" href="{{ path('app_logout') }}">{{'Logout'|trans}}</a>
+           
 	      </div>
     	</nav>
     <main role="main" class="container">
