@@ -15,6 +15,7 @@ class PageVisitorController extends AbstractController
     {
         return $this->render('page_visitor/index.html.twig', [
             'controller_name' => 'PageVisitorController',
-        ]);
+        ]);    
     }
+
 }
