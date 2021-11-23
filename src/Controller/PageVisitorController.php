@@ -21,17 +21,7 @@ class PageVisitorController extends AbstractController
             'controller_name' => 'PageVisitorController',
         ]);    
     }
-    /**
-     * @Route("/visitor1", name="visitor")
-     */
-    public function select(){
- 
-        $form = $this->createForm(PageVisitorType::class);
- 
-        return $this->render('page_visitor/index.html.twig',[
-            'formulaire' => $form->createView(),
-        ]);
-    }
+    
     /**
      * @Route("/visitor2", name="visitor")
      */
@@ -45,15 +35,16 @@ class PageVisitorController extends AbstractController
         $form = $this->createForm(PageVisitorType::class, $avis);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
+            $avis= $form->getData();
             $entityManager->persist($avis);
             $entityManager->flush();
 
 
-            return $this->redirectToRoute('task_success');
+
+            return $this->redirectToRoute('home');
         }
-        return $this->renderForm('page_visitor/index.html.twig', [
-            'formulaire' => $form,
+        return $this->render('page_visitor/index.html.twig', [
+            'formulaire' => $form->createView(),
         ]);
         // ...
     }
