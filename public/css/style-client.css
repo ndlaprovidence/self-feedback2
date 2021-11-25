@@ -15,36 +15,45 @@
   flex-direction: row-reverse;
   color: lightgray;
 }
-.star-ratings-input ChoiceType {
+.star-ratings-input input {
   width: 0;
   height: 0;
   position: absolute;
   opacity: 0;
 }
-/*
+
 h2 {
   text-align: center;
   margin: 5px 0;
+  
 }
-textarea {
+#textarea {
   width: 300px;
   height: 150px;
   padding: 12px 20px;
-  box-sizing: border-box;
-  border: 2px solid rgb(241, 108, 108);
   border-radius: 4px;
-  background-color: #f8f8f8;
   font-size: 16px;
   display: block;
   margin: 0 auto;
+  resize: both;
 }
-textarea:focus {
-  border: 2px solid rgb(241, 108, 108);
+#submit{
+  display:block;
+  margin:0 auto;
+  border:0;
+  background:rgb(241, 108, 108);
+  color:#F1F1F1; 
+  padding:.5em 1em; 
+  cursor:pointer; 
+}
+#submit:hover{
+  background:rgb(240, 122, 122);
 }
 
 .star-ratings-input p {
-  font-weight: none !important;
+  font-weight:bolder;
   color: rgb(241, 108, 108);
+  padding:0px 30px;
 }
 
 

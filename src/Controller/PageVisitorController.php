@@ -10,44 +10,35 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * @Route("/visitor")
+ */
 class PageVisitorController extends AbstractController
 {
     /**
-     * @Route("/visitor", name="visitor")
+     * @Route("/", name="visitor_index")
      */
     public function index(): Response
     {
-        return $this->render('page_visitor/index.html.twig', [
-            'controller_name' => 'PageVisitorController',
-        ]);    
+        return $this->render('page_visitor/index.html.twig');    
     }
     
     /**
-     * @Route("/visitor2", name="visitor")
+     * @Route("/save", name="visitor_save")
      */
-    public function new(EntityManagerInterface $entityManager, Request $request): Response
+    public function save(EntityManagerInterface $entityManager, Request $request): Response
     {
-        // creates a task object and initializes some data for this example
         $avis = new Avis();
-        
-        
+        $avis->setProprete($request->get('note-proprete'));
+        $avis->setGout($request->get('note-gout'));
+        $avis->setDiversite($request->get('note-diversite'));
+        $avis->setAcceuil($request->get('note-accueil'));
+        $avis->setDisponibilite($request->get('note-disponibilite'));
+        $avis->setChaleur($request->get('note-chaleur'));
+        $avis->setCommentaire($request->get('commentaire'));
+        $entityManager->persist($avis);
+        $entityManager->flush();
 
-        $form = $this->createForm(PageVisitorType::class, $avis);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $avis= $form->getData();
-            $entityManager->persist($avis);
-            $entityManager->flush();
-
-
-
-            return $this->redirectToRoute('home');
-        }
-        return $this->render('page_visitor/index.html.twig', [
-            'formulaire' => $form->createView(),
-        ]);
-        // ...
+        return $this->render('page_visitor/index.html.twig');    
     }
-
-
 }
