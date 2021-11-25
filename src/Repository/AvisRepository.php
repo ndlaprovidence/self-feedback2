@@ -19,7 +19,26 @@ class AvisRepository extends ServiceEntityRepository
         parent::__construct($registry, Avis::class);
     }
 
+    public function countgout($value)
+    {
+        // return $this->createQueryBuilder('a')
+        //     ->andWhere('a.gout = :val')
+        //     ->setParameter('val', $value)
+        //     ->getQuery()
+        //     ->getResult()
+        // ;
+        $entityManager = $this->getEntityManager();
 
+        $query = $entityManager->createQuery(
+            'SELECT count(a.gout)
+            FROM App\Entity\Avis a
+            WHERE a.gout = :value'
+        )->setParameter('value', $value);
+
+        // returns an array of Product objects
+        return $query->getOneOrNullResult();
+        
+    }
 
     
     // /**
@@ -27,6 +46,8 @@ class AvisRepository extends ServiceEntityRepository
     //  */
     /*
     public function findByExampleField($value)
+    {
+            public function findByExampleField($value)
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.exampleField = :val')
@@ -36,6 +57,7 @@ class AvisRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
     }
     */
 

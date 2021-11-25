@@ -10,14 +10,14 @@
 
 
 {% block body %}
-        <h2 class="mb-4">Les Avis</h2>
+        <h2 class="mb-4">Avis Gout</h2>
 {% dump(data) %}
 <canvas id="myChart" width="400" height="400"></canvas>
 
 <script>
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'pie',
     data: {{ data|raw }},
     options: {
         scales: {
