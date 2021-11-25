@@ -57,8 +57,10 @@ class TableController extends AbstractController
         // Render the HTML as PDF
         $dompdf->render();
 
+        $fichier= 'Avis.pdf';
+
         // Output the generated PDF to Browser
-        return $dompdf->stream();
+        return $dompdf->stream($fichier);
     }
 
 }
