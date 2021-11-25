@@ -3,6 +3,25 @@
   font-size: 150%;
   background-image: url("../images/banniere.png");
 }
+.star-ratings-input {
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.stars {
+  display: flex;
+  flex-direction: row-reverse;
+  color: lightgray;
+}
+.star-ratings-input ChoiceType {
+  width: 0;
+  height: 0;
+  position: absolute;
+  opacity: 0;
+}
+/*
 h2 {
   text-align: center;
   margin: 5px 0;
@@ -22,23 +41,12 @@ textarea {
 textarea:focus {
   border: 2px solid rgb(241, 108, 108);
 }
-.star-ratings-input {
-  padding-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+
 .star-ratings-input p {
   font-weight: none !important;
   color: rgb(241, 108, 108);
 }
-.star-ratings-input input {
-  width: 0;
-  height: 0;
-  position: absolute;
-  opacity: 0;
-}
+
 
 [name*="note"][value="1"]:checked ~ .stars *:nth-child(5) {
   animation: pulse 0.25s ease-in-out forwards;
@@ -62,11 +70,7 @@ textarea:focus {
   animation: pulse 0.25s ease-in-out forwards;
 }
 
-.stars {
-  display: flex;
-  flex-direction: row-reverse;
-  color: lightgray;
-}
+
 .stars label,
 .stars div {
   font-size: 50px;
