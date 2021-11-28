@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+{% endblock %}
+
+
+{% block title %}GraphController!{% endblock %}
+
+
+
+{% block body %}
+        <h2 class="mb-4">Avis Gout</h2>
+{% dump(data) %}
+<canvas id="myChart" width="400" height="400"></canvas>
+
+<script>
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {{ data|raw }},
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+ 
+
+{% endblock %}
+
+
+
