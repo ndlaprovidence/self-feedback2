@@ -97,11 +97,16 @@
     "doctrine/sql-formatter": {
         "version": "1.1.2"
     },
+    "dompdf/dompdf": {
+        "version": "v1.1.0"
+    },
     "egulias/email-validator": {
         "version": "3.1.2"
     },
     "ezyang/htmlpurifier": {
         "version": "v4.13.0"
+    "fpdf/fpdf": {
+        "version": "1.83.2"
     },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
@@ -135,6 +140,12 @@
     },
     "phar-io/version": {
         "version": "3.1.0"
+    },
+    "phenx/php-font-lib": {
+        "version": "0.5.2"
+    },
+    "phenx/php-svg-lib": {
+        "version": "0.3.4"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -203,6 +214,8 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    "sabberworm/php-css-parser": {
+        "version": "8.3.1"
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"

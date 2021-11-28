@@ -3,25 +3,6 @@
   font-size: 150%;
   background-image: url("../images/banniere.png");
 }
-h2 {
-  text-align: center;
-  margin: 5px 0;
-}
-textarea {
-  width: 300px;
-  height: 150px;
-  padding: 12px 20px;
-  box-sizing: border-box;
-  border: 2px solid rgb(241, 108, 108);
-  border-radius: 4px;
-  background-color: #f8f8f8;
-  font-size: 16px;
-  display: block;
-  margin: 0 auto;
-}
-textarea:focus {
-  border: 2px solid rgb(241, 108, 108);
-}
 .star-ratings-input {
   padding-bottom: 20px;
   display: flex;
@@ -29,9 +10,10 @@ textarea:focus {
   align-items: center;
   justify-content: center;
 }
-.star-ratings-input p {
-  font-weight: none !important;
-  color: rgb(241, 108, 108);
+.stars {
+  display: flex;
+  flex-direction: row-reverse;
+  color: lightgray;
 }
 .star-ratings-input input {
   width: 0;
@@ -39,6 +21,41 @@ textarea:focus {
   position: absolute;
   opacity: 0;
 }
+
+h2 {
+  text-align: center;
+  margin: 5px 0;
+  
+}
+#textarea {
+  width: 300px;
+  height: 150px;
+  padding: 12px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  display: block;
+  margin: 0 auto;
+  resize: both;
+}
+#submit{
+  display:block;
+  margin:0 auto;
+  border:0;
+  background:rgb(241, 108, 108);
+  color:#F1F1F1; 
+  padding:.5em 1em; 
+  cursor:pointer; 
+}
+#submit:hover{
+  background:rgb(240, 122, 122);
+}
+
+.star-ratings-input p {
+  font-weight:bolder;
+  color: rgb(241, 108, 108);
+  padding:0px 30px;
+}
+
 
 [name*="note"][value="1"]:checked ~ .stars *:nth-child(5) {
   animation: pulse 0.25s ease-in-out forwards;
@@ -62,11 +79,7 @@ textarea:focus {
   animation: pulse 0.25s ease-in-out forwards;
 }
 
-.stars {
-  display: flex;
-  flex-direction: row-reverse;
-  color: lightgray;
-}
+
 .stars label,
 .stars div {
   font-size: 50px;

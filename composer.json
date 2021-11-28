@@ -10,6 +10,8 @@
         "doctrine/doctrine-bundle": "^2.4",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.10",
+        "dompdf/dompdf": "^1.1",
+        "fpdf/fpdf": "^1.83",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpoffice/phpspreadsheet": "^1.19",
         "sensio/framework-extra-bundle": "^5.1",
