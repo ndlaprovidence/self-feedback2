@@ -52,6 +52,11 @@ class Avis
      */
     private $commentaire;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Repas::class, inversedBy="AvisRepas")
+     */
+    private $repas;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -141,6 +146,18 @@ class Avis
     public function setCommentaire(string $commentaire): self
     {
         $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    public function getRepas(): ?Repas
+    {
+        return $this->repas;
+    }
+
+    public function setRepas(?Repas $repas): self
+    {
+        $this->repas = $repas;
 
         return $this;
     }
