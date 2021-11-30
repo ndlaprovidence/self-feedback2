@@ -1,4 +1,16 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {# {{ form_widget(form) }} #}
+
+    <div class="test-classe">
+        {{ form_row(form.username) }}
+    </div>
+        
+    <p>
+    Bonjour
+    </p>
+
+    {{ form_row(form.roles) }}
+    {{ form_row(form.password) }}
+
     <button class="btn btn-success">{{ button_label|default('Sauvegarder') }}</button>
 {{ form_end(form) }}

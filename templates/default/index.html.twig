@@ -8,7 +8,11 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
       <div id="content" class="p-4 p-md-5 pt-5">
-        <h2 class="mb-4">Bonjour {{ app.user.username }} </h2>
+        <h2 class="mb-4">Bonjour 
+        {% if app.user %}
+        {{ app.user.username }} 
+        {% endif %}
+        </h2>
         <p>Bienvenue sur la page d'administration de l'application FeedBack.</p>
 		<p>Cette page permet de voir en temps réel les avis sur le self mais aussi de pouvoir exporter les données en format excel et pdf</p>
 		<p>De plus il est possible de rajouter des administrateur mais aussi de rajouter des types d'avis et de les supprimer et/ou les modifier</p>
