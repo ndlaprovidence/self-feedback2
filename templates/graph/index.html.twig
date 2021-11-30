@@ -10,25 +10,158 @@
 
 
 {% block body %}
-        <h2 class="mb-4">Avis Gout</h2>
-{% dump(data) %}
-<canvas id="myChart" width="400" height="400"></canvas>
+        <h2 class="mb-4">Les avis</h2>
+{% dump(data_gout) %}
+{% dump(data_diversite) %}
+
+<table>
+    <tr>
+        <td>
+            <div class="pie-chart">
+                <canvas id="Gout"></canvas>
+            </div>
+        </td>
+        <td>
+            <div class="pie-chart">
+                <canvas id="Diversite"></canvas>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="pie-chart">
+                <canvas id="Chaleur"></canvas>
+            </div>
+        </td>
+        <td>
+            <div class="pie-chart">
+                <canvas id="Disponibilite"></canvas>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="pie-chart">
+                <canvas id="Proprete"></canvas>
+            </div>
+        </td>
+        <td>
+            <div class="pie-chart">
+                <canvas id="Accueil"></canvas>
+            </div>
+        </td>
+    </tr>
+</table>
 
 <script>
-const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new Chart(ctx, {
+const gout = document.getElementById('Gout').getContext('2d');
+const mesGout = new Chart(gout, {
     type: 'pie',
-    data: {{ data|raw }},
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
+    data: {{ data_gout|raw }},
+     options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Goûts'
+      }
     }
+  },
+});
+
+const diversite = document.getElementById('Diversite').getContext('2d');
+const mesDiversite = new Chart(diversite, {
+    type: 'pie',
+    data: {{ data_diversite|raw }},
+    options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Diversité des plats'
+      }
+    }
+  },
+});
+
+const chaleur = document.getElementById('Chaleur').getContext('2d');
+const laChaleur = new Chart(chaleur, {
+    type: 'pie',
+    data: {{ data_chaleur|raw }},
+    options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Chaleur des plats'
+      }
+    }
+  },
+});
+
+const disponibilite = document.getElementById('Disponibilite').getContext('2d');
+const laDisponibilite = new Chart(disponibilite, {
+    type: 'pie',
+    data: {{ data_disponibilite|raw }},
+    options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Disponibilité'
+      }
+    }
+  },
+});
+
+const proprete = document.getElementById('Proprete').getContext('2d');
+const laProprete = new Chart(proprete, {
+    type: 'pie',
+    data: {{ data_proprete|raw }},
+    options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Propreté du self'
+      }
+    }
+  },
+});
+
+const accueil = document.getElementById('Accueil').getContext('2d');
+const Laccueil = new Chart(accueil, {
+    type: 'pie',
+    data: {{ data_accueil|raw }},
+    options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Accueil du self'
+      }
+    }
+  },
 });
 </script>
- 
 
 {% endblock %}
 

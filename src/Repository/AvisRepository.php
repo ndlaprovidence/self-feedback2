@@ -36,10 +36,64 @@ class AvisRepository extends ServiceEntityRepository
         )->setParameter('value', $value);
 
         // returns an array of Product objects
-        return $query->getOneOrNullResult();
-        
+        return $query->getOneOrNullResult();   
     }
 
+    public function countdiver($value)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT count(a.diversite)
+            FROM App\Entity\Avis a
+            WHERE a.diversite = :value'
+        )->setParameter('value', $value);
+        return $query->getOneOrNullResult();   
+    }
+    
+    public function countchaleur($value)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT count(a.chaleur)
+            FROM App\Entity\Avis a
+            WHERE a.chaleur = :value'
+        )->setParameter('value', $value);
+        return $query->getOneOrNullResult();   
+    }
+
+    public function countdispo($value)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT count(a.disponibilite)
+            FROM App\Entity\Avis a
+            WHERE a.disponibilite = :value'
+        )->setParameter('value', $value);
+        return $query->getOneOrNullResult();   
+    }
+
+    public function countpropr($value)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT count(a.proprete)
+            FROM App\Entity\Avis a
+            WHERE a.proprete = :value'
+        )->setParameter('value', $value);
+        return $query->getOneOrNullResult();   
+    }
+
+    public function countaccueil($value)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT count(a.acceuil)
+            FROM App\Entity\Avis a
+            WHERE a.acceuil = :value'
+        )->setParameter('value', $value);
+        return $query->getOneOrNullResult();   
+    }
     
     // /**
     //  * @return Avis[] Returns an array of Avis objects
