@@ -629,6 +629,9 @@
     "symfony/yaml": {
         "version": "v4.4.34"
     },
+    "tecnickcom/tcpdf": {
+        "version": "6.4.2"
+    },
     "theseer/tokenizer": {
         "version": "1.2.1"
     },
