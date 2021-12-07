@@ -7,6 +7,7 @@ use App\Entity\Avis;
 use App\Repository\AvisRepository;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -22,10 +23,25 @@ class TableController extends AbstractController
     /**
      * @Route("/", name="table_index")
      */
-    public function index(AvisRepository $avisRepository): Response
+    public function index(AvisRepository $avisRepository, Request $request): Response
+    {
+        $sort = $request->get('sort');
+
+        $data = $avisRepository->findAllSortedBy($sort);
+
+        return $this->render('table/index.html.twig', [
+            'Avis' => $data ,
+        ]);
+    }
+
+    /**
+     * @Route("/gout", name="table_test")
+     */
+    public function test(AvisRepository $avisRepository): Response
     {
         return $this->render('table/index.html.twig', [
-            'Avis' => $avisRepository->findAll(),
+            'Avis' => $avisRepository->sortGout(),
+
         ]);
     }
 

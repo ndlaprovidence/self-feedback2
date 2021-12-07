@@ -17,20 +17,22 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>ID </th>
-                        <th>Goût</th>
-                        <th>Diversité</th>
-                        <th>Chaleur</th>
-                        <th>Disponibilité</th>
-                        <th>Propreté</th>
-                        <th>Acceuil</th>
-                        <th>Commentaires</th>
+                        <th>
+                            <a href="/table/?sort=gout">Gout</a>
+                        </th>
+                        <th><a href="/table/?sort=diversite">Diversité</a></th>
+                        <th><a href="/table/?sort=chaleur">Chaleur</a></th>
+                        <th><a href="/table/?sort=chaleur">Disponibilité</a></th>
+                        <th><a href="/table/?sort=proprete">Propreté</a></th>
+                        <th><a href="/table/?sort=acceuil">Acceuil</a></th>
+                        <th>>Commentaires</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for avis in Avis %}
                     <tr>
                         <td>{{ avis.id }}</td>
-                        <td>{{ avis.gout }}</td>
+                        <td >{{ avis.gout }}</td>
                         <td>{{ avis.diversite }}</td>
                         <td>{{ avis.chaleur }}</td>
                         <td>{{ avis.disponibilite }}</td>

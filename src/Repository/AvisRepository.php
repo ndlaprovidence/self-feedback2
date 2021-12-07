@@ -18,7 +18,20 @@ class AvisRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Avis::class);
     }
+    public function findAllSortedBy(String $sort): array
+    {
+        // automatically knows to select Products
+        // the "p" is an alias you'll use in the rest of the query
+        $qb = $this->createQueryBuilder('avis')            
+            ->orderBy('avis.'.$sort, 'DESC');
 
+        $query = $qb->getQuery();
+
+        return $query->execute();
+
+        // to get just one result:
+        // $product = $query->setMaxResults(1)->getOneOrNullResult();
+    }
     public function countgout($value)
     {
         // return $this->createQueryBuilder('a')
