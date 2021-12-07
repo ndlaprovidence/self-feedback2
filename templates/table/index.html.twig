@@ -17,7 +17,7 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>ID </th>
-                        <th>Goût</th>
+                        <th>Goût </th>
                         <th>Diversité</th>
                         <th>Chaleur</th>
                         <th>Disponibilité</th>
@@ -41,6 +41,28 @@
                     {% endfor %}
                 </tbody>
                 </table>
+        
+        <label for="start">Afficher du</label>
+
+    <input type="date" id="date1" name="trip-start"   value="2021-11-07">
+
+    <label for="start">au</label>
+
+    <input type="date" id="date2" name="trip-end"   value="2021-12-07">
+    <form action="/table/" method="POST"> <button type ="submit" class="btn btn-success">Appliquer</button></form>
+
+    </br></br>
+        {# <label for="pet-select">Selectionner une durée</label>
+
+        <select name="SelectDuree" id="SelectDuree">
+            <option value="all">tout</option>
+            <option value="1day">1 jour</option>
+            <option value="1weeks">1 semaine</option>
+            <option value="2weeks">2 semaines</option>
+            <option value="1month">1 mois</option>
+            <option value="1years">1 ans</option>
+        </select></br> #}
+
         <a class="btn btn-success" href="{{ path('table_sendexcel') }}">{{'Send Excel'|trans}}</a>
         <form action="/table/pdf" method="POST"> <button type ="submit" class="btn btn-success">PDF</button></form>
 {% endblock %}

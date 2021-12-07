@@ -94,6 +94,30 @@ class AvisRepository extends ServiceEntityRepository
         )->setParameter('value', $value);
         return $query->getOneOrNullResult();   
     }
+    public function triergout()
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT *
+            FROM avis
+            ORDER BY gout DESC'
+        );
+
+    }
+
+
+    public function trierDate($value)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT *
+            FROM avis, repas
+            WHERE avis.repas_id = repas.id
+            AND repas.date_repas BETWEEN "" AND ""'
+        )->setParameter('value', $value);
+        return $query->getOneOrNullResult();
+
+    }
     
     // /**
     //  * @return Avis[] Returns an array of Avis objects

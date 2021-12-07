@@ -119,4 +119,19 @@ class TableController extends AbstractController
         return $dompdf->stream($fichier);
     }
 
+    /**
+     * @Route("/duree", name="table_duree")
+     */
+    public function TriDate(AvisRepository $avisRepository)
+    {
+        $lesAvis = $avisRepository->findAll();
+
+
+        $response = $this->render('table/duree.html.twig', [
+            'date1' => $date1,
+            'date2' => $date2,
+        ]);
+
+
+    }
 }

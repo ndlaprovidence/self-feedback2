@@ -2,14 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\AvisRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\TypesUtilisateurs;
+use App\Repository\AvisRepository;
 
 /**
  * @ORM\Entity(repositoryClass=AvisRepository::class)
  */
 class Avis
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -51,6 +53,16 @@ class Avis
      * @ORM\Column(type="string", length=255)
      */
     private $commentaire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TypesUtilisateurs::class, inversedBy="TypesUtilisateurs")
+     */
+    private $typesUtilisateurs;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Repas::class, inversedBy="Repas")
+     */
+    private $repas;
 
     public function getId(): ?int
     {
@@ -141,6 +153,30 @@ class Avis
     public function setCommentaire(string $commentaire): self
     {
         $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    public function getTypesUtilisateurs(): ?TypesUtilisateurs
+    {
+        return $this->typesUtilisateurs;
+    }
+
+    public function setTypesUtilisateurs(?TypesUtilisateurs $typesUtilisateurs): self
+    {
+        $this->typesUtilisateurs = $typesUtilisateurs;
+
+        return $this;
+    }
+
+    public function getRepas(): ?Repas
+    {
+        return $this->repas;
+    }
+
+    public function setRepas(?Repas $repas): self
+    {
+        $this->repas = $repas;
 
         return $this;
     }
