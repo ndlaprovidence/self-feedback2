@@ -2,6 +2,7 @@
 
 {% block javascripts %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js" integrity="sha512-Z8CqofpIcnJN80feS2uccz+pXWgZzeKxDsDNMD/dJ6997/LSRY+W4NmEt9acwR+Gt9OHN0kkI1CTianCwoqcjQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {% endblock %}
 
 
@@ -14,8 +15,8 @@
 {% dump(data_gout) %}
 {% dump(data_diversite) %}
 
-<a class="btn btn-success" href="{{ path('graph_dashboard_pdf') }}">{{'Send PDF'|trans}}</a>
-
+{# <a class="btn btn-success" href="#" id="downloadPdf">{{'Send PDF'|trans}}</a> #}
+<button onclick="downloadPDF()">PDFversion</button>
 
 <table>
     <tr>
@@ -164,8 +165,15 @@ const Laccueil = new Chart(accueil, {
     }
   },
 });
-</script>
 
+function downloadPDF(){
+  const canvas = document.getElementById('Accueil');
+  const canvasImage = canvas.toDataURL('image/jpeg', 1.0);
+  console.log(canvasImage);
+}
+</script>
+{# <script src="{{asset('js/pdf.js') }}"></script> #}
+{# https://www.youtube.com/watch?v=U5CVVBY61KY #}
 {% endblock %}
 
 
