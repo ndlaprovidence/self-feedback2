@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block javascripts %}
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js" integrity="sha512-Z8CqofpIcnJN80feS2uccz+pXWgZzeKxDsDNMD/dJ6997/LSRY+W4NmEt9acwR+Gt9OHN0kkI1CTianCwoqcjQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
 {% endblock %}
 
 
@@ -149,6 +150,15 @@ const laProprete = new Chart(proprete, {
 });
 
 const accueil = document.getElementById('Accueil').getContext('2d');
+const bgColor = {
+    id: 'bgColor',
+    beforeDraw: (chart, options) => {
+      const { ctx, width, height} = chart;
+      ctx.fillStyle = option.back;
+      ctx.fillRect(0, 0, width, height)
+      ctx.restore();
+    }
+}
 const Laccueil = new Chart(accueil, {
     type: 'pie',
     data: {{ data_accueil|raw }},
@@ -161,15 +171,25 @@ const Laccueil = new Chart(accueil, {
       title: {
         display: true,
         text: 'Accueil du self'
+      },
+      bgColor:{
+        
       }
     }
   },
+  plugins: [bgColor]
 });
 
 function downloadPDF(){
   const canvas = document.getElementById('Accueil');
   const canvasImage = canvas.toDataURL('image/jpeg', 1.0);
   console.log(canvasImage);
+
+  let pdf = new jsPDF('landscape');
+  pdf.setFontSize(20);
+  pdf.addImage(canvasImage, 'JPEG', 15, 15, 280, 150);
+  pdf.save('test.pdf');
+
 }
 </script>
 {# <script src="{{asset('js/pdf.js') }}"></script> #}
