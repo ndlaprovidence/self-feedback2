@@ -13,20 +13,23 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class PageVisitorType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    { 
         $choise = [
             'Etudiant' => 'Etudiant',
-            '★2' => 'b',
-            '★3' => 'v',
-            '★4' => 'h',
-            '★5' => 'aaa',
+            'Terminale' => 'Terminale',
+            'Premiere' => 'v',
+            'Seconde' => 'h',
+            'Troisieme' => 'aaa',
         ];
         $builder
-            ->add('classe'
+            ->add('libelle_t'
                 , ChoiceType::class, [
                     'choices' => $choise,
                 ])
-        ;
+            
+  
+                ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
