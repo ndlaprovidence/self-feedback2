@@ -42,5 +42,6 @@
                 </tbody>
                 </table>
         <a class="btn btn-success" href="{{ path('table_sendexcel') }}">{{'Send Excel'|trans}}</a>
-        <form action="/table/pdf" method="POST"> <button type ="submit" class="btn btn-success">PDF</button></form>
+        <a class="btn btn-success" href="{{ path('table_pdf') }}">{{'Send PDF'|trans}}</a>
+        
 {% endblock %}

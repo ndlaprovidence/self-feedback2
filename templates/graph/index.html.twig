@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block javascripts %}
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.js"></script>  {#ne pas oublier de dl les fichier et les mettre dans public#}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
 {% endblock %}
 
 
@@ -14,6 +16,9 @@
 {% dump(data_gout) %}
 {% dump(data_diversite) %}
 
+{# <a class="btn btn-success" href="#" id="downloadPdf">{{'Send PDF'|trans}}</a> #}
+<button class="btn btn-success" onclick="downloadPDF()">PDFversion</button>
+<br/><br/>
 <table>
     <tr>
         <td>
@@ -54,6 +59,16 @@
 </table>
 
 <script>
+const bgColor = {
+    id: 'bgColor',
+    beforeDraw: (chart, options) => {
+      const { ctx, width, height} = chart;
+      ctx.fillStyle = 'white';
+      ctx.fillRect(0, 0, width, height)
+      ctx.restore();
+    }
+}
+
 const gout = document.getElementById('Gout').getContext('2d');
 const mesGout = new Chart(gout, {
     type: 'pie',
@@ -70,6 +85,7 @@ const mesGout = new Chart(gout, {
       }
     }
   },
+  plugins: [bgColor]
 });
 
 const diversite = document.getElementById('Diversite').getContext('2d');
@@ -88,6 +104,7 @@ const mesDiversite = new Chart(diversite, {
       }
     }
   },
+  plugins: [bgColor]
 });
 
 const chaleur = document.getElementById('Chaleur').getContext('2d');
@@ -106,6 +123,7 @@ const laChaleur = new Chart(chaleur, {
       }
     }
   },
+  plugins: [bgColor]
 });
 
 const disponibilite = document.getElementById('Disponibilite').getContext('2d');
@@ -124,6 +142,7 @@ const laDisponibilite = new Chart(disponibilite, {
       }
     }
   },
+  plugins: [bgColor]
 });
 
 const proprete = document.getElementById('Proprete').getContext('2d');
@@ -142,6 +161,7 @@ const laProprete = new Chart(proprete, {
       }
     }
   },
+  plugins: [bgColor]
 });
 
 const accueil = document.getElementById('Accueil').getContext('2d');
@@ -157,12 +177,49 @@ const Laccueil = new Chart(accueil, {
       title: {
         display: true,
         text: 'Accueil du self'
-      }
+      },
     }
   },
+  plugins: [bgColor]
 });
-</script>
 
+function downloadPDF(){
+  const Gout = document.getElementById('Gout');
+  const GoutImage = Gout.toDataURL('image/jpeg', 1.0);
+
+  const Diversite = document.getElementById('Diversite');
+  const DiversiteImage = Diversite.toDataURL('image/jpeg', 1.0);
+
+  const Chaleur = document.getElementById('Chaleur');
+  const ChaleurImage = Chaleur.toDataURL('image/jpeg', 1.0);
+
+  const Disponibilite = document.getElementById('Disponibilite');
+  const DisponibiliteImage = Disponibilite.toDataURL('image/jpeg', 1.0);
+
+  const Proprete = document.getElementById('Proprete');
+  const PropreteImage = Proprete.toDataURL('image/jpeg', 1.0);
+
+  const Accueil = document.getElementById('Accueil');
+  const AccueilImage = Accueil.toDataURL('image/jpeg', 1.0);
+
+  let pdf = new jsPDF('portrait');
+  pdf.setFontSize(20);
+
+  pdf.text(15,15, "Les avis sur le self")
+  pdf.addImage(GoutImage, 'JPEG', 50, 20, 110, 110);
+  pdf.addImage(DiversiteImage, 'JPEG', 50, 160, 110, 110);
+  pdf.addPage();
+  pdf.addImage(ChaleurImage, 'JPEG', 50, 20, 110, 110);
+  pdf.addImage(DisponibiliteImage, 'JPEG', 50, 160, 110, 110);
+  pdf.addPage();
+  pdf.addImage(PropreteImage, 'JPEG', 50, 20, 110, 110);
+  pdf.addImage(AccueilImage, 'JPEG', 50, 160, 110, 110);
+
+  pdf.save('Graphique_Feedback.pdf');
+
+}
+</script>
+{# <script src="{{asset('js/pdf.js') }}"></script> #}
 {% endblock %}
 
 
