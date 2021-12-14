@@ -136,9 +136,9 @@ class AvisRepository extends ServiceEntityRepository
             'SELECT r.date_repas, a.gout, a.diversite, a.chaleur, a.disponibilite, a.proprete, a.acceuil, a.commentaire
             FROM App\Entity\Avis a
             INNER JOIN a.repas r
-            WHERE r.date_repas > = :date_repas AND r.date_repas < = :date_repas'
-        )->setParameter('date_repas', "2021-12-01")
-        ->setParameter('date_repas', "2021-12-07");
+            WHERE r.date_repas > = :date_repas_start AND r.date_repas < = :date_repas_end');
+        $query->setParameter('date_repas_start', $startDate);
+        $query->setParameter('date_repas_end', $endDate);
 
         return $query->getResult();
     }

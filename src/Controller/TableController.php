@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
-use DateTime;
 use Dompdf\Dompdf;
 use App\Entity\Avis;
 use App\Repository\AvisRepository;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -23,14 +23,21 @@ class TableController extends AbstractController
     /**
      * @Route("/", name="table_index")
      */
-    public function index(AvisRepository $avisRepository): Response
+    public function index(AvisRepository $avisRepository, Request $request): Response
     {
-        $startDate = new DateTime();        
-        $endDate = new DateTime();
+        $startDate = $request->get('startDate'); 
+        if ($startDate == null) {
+            $startDate = date('Y-m-d');
+        }       
+        $endDate = $request->get('endDate');        
+        if ($endDate == null) {
+            $endDate = date('Y-m-d');
+        }       
+
         return $this->render('table/index.html.twig', [
+            'Avis' => $avisRepository->findByDates($startDate, $endDate),
             'startDate' => $startDate,
             'endDate' => $endDate,
-            'Avis' => $avisRepository->findByDates($startDate, $endDate),
         ]);
     }
 
@@ -124,20 +131,20 @@ class TableController extends AbstractController
         return $dompdf->stream($fichier);
     }
 
-    /**
-     * @Route("/", name="table_duree")
-     */
-    public function TriDate(AvisRepository $avisRepository)
-    {
-        $lesAvis = $avisRepository->findAll();
+    // /**
+    //  * @Route("/", name="table_duree")
+    //  */
+    // public function TriDate(AvisRepository $avisRepository)
+    // {
+    //     $lesAvis = $avisRepository->findAll();
 
 
-        $response = $this->render('table/index.html.twig', [
-            'date1' => $date1,
-            'date2' => $date2,
+    //     $response = $this->render('table/index.html.twig', [
+    //         'date1' => $date1,
+    //         'date2' => $date2,
 
-        ]);
+    //     ]);
 
 
-    }
+    // }
 }

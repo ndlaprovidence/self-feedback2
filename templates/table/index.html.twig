@@ -47,17 +47,17 @@
                 </table>
         
 
-    <form action="{{ path('table_index') }}" method="GET"> 
+    <form action="{{ path('table_index') }}" method="POST"> 
     <label for="start">Afficher du</label>
 
-    <input type="date" id="startDate" name="startDate"   value="2021-12-01">
+    <input type="date" id="startDate" name="startDate"   value="{{startDate}}">
 
     <label for="start">au</label>
 
-    <input type="date" id="endDate" name="endDate"   value="2021-12-07"><br/><button type ="submit" class="btn btn-success">Appliquer</button></form>
-    
+    <input type="date" id="endDate" name="endDate"   value="{{endDate}}"><br/><button type ="submit" class="btn btn-success">Appliquer</button></form>
+    <p>Par défaut date du jour</p>
 
-    </br></br>
+    </br>
         {# <label for="pet-select">Selectionner une durée</label>
 
         <select name="SelectDuree" id="SelectDuree">
