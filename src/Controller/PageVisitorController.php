@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Avis;
 use App\Form\PageVisitorType;
-use App\Entity\TypesUtilisateurs;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,9 +18,12 @@ class PageVisitorController extends AbstractController
     /**
      * @Route("/", name="visitor_index")
      */
-    public function index(): Response
+    public function index(EntityManagerInterface $manager): Response
     {
-        return $this->render('page_visitor/index.html.twig');    
+        $form = $this->createForm(PageVisitorType::class);
+        return $this->render('page_visitor/index.html.twig',[
+            'form' => $form->createView(),
+        ]);    
     }
     
     /**
@@ -30,8 +32,6 @@ class PageVisitorController extends AbstractController
     public function save(EntityManagerInterface $entityManager, Request $request): Response
     {
         $avis = new Avis();
-        $avis->setTypesUtilisateurs($request->get('classe'));
-        $avis->setRepas($request->get('repas'));
         $avis->setProprete($request->get('note-proprete'));
         $avis->setGout($request->get('note-gout'));
         $avis->setDiversite($request->get('note-diversite'));
@@ -41,7 +41,6 @@ class PageVisitorController extends AbstractController
         $avis->setCommentaire($request->get('commentaire'));
         $entityManager->persist($avis);
         $entityManager->flush();
-
         return $this->render('page_visitor/index.html.twig');    
     }
 }
