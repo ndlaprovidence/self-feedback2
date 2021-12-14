@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Avis;
 use App\Form\PageVisitorType;
+use App\Entity\TypesUtilisateurs;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +30,8 @@ class PageVisitorController extends AbstractController
     public function save(EntityManagerInterface $entityManager, Request $request): Response
     {
         $avis = new Avis();
+        $avis->setTypesUtilisateurs($request->get('classe'));
+        $avis->setRepas($request->get('repas'));
         $avis->setProprete($request->get('note-proprete'));
         $avis->setGout($request->get('note-gout'));
         $avis->setDiversite($request->get('note-diversite'));

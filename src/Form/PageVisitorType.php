@@ -21,6 +21,7 @@ class PageVisitorType extends AbstractType
             '★5' => '5',
         ];
         $builder
+            ->add()
             ->add('gout'
                 , ChoiceType::class, [
                     'label'=>'Goût du plat',

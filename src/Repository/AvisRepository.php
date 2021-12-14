@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Avis;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Avis|null find($id, $lockMode = null, $lockVersion = null)
@@ -93,6 +94,53 @@ class AvisRepository extends ServiceEntityRepository
             WHERE a.acceuil = :value'
         )->setParameter('value', $value);
         return $query->getOneOrNullResult();   
+    }
+    public function triergout()
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT *
+            FROM avis
+            ORDER BY gout DESC'
+        );
+
+    }
+
+
+    public function trierDate($date1, $date2)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT *
+            FROM avis, repas
+            WHERE avis.repas_id = repas.id
+            AND repas.date_repas BETWEEN :value AND :value'
+        )->setParameter('value', $date1)
+         ->setParameter('value', $date2);
+        return $query->getOneOrNullResult();
+
+    }
+
+    public function findAll()
+    {
+        $query = $this->createQueryBuilder('a');
+        // $query->andWhere('a.gout = :val')
+        // $query->setParameter('val', $value)
+        return $query->getQuery()->getResult();
+    }
+
+    public function findByDates($startDate=null, $endDate=null){      
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT r.date_repas, a.gout, a.diversite, a.chaleur, a.disponibilite, a.proprete, a.acceuil, a.commentaire
+            FROM App\Entity\Avis a
+            INNER JOIN a.repas r
+            WHERE r.date_repas > = :date_repas_start AND r.date_repas < = :date_repas_end');
+        $query->setParameter('date_repas_start', $startDate);
+        $query->setParameter('date_repas_end', $endDate);
+
+        return $query->getResult();
     }
     
     // /**
