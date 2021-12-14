@@ -33,10 +33,15 @@
     </div>
 </div>
 <br/><br/>
-{{form(form)}}
+
 
 <form action="{{ path('visitor_save') }}" method="POST">
-
+<div class="star-ratings-input">
+  <h2>Votre classe</h2>
+  <p>Indiquez votre section du lycée.</p>
+  </div>
+{{form_widget(form.user_type)}}
+{{form_widget(form.repas_type)}}
 <div class="star-ratings-input"> <!--GOUT-->
   <h2>Goût du plat</h2>
   <p>Indiquez votre avis en notant de 1 à 5 étoiles, le goût du plat.</p>
