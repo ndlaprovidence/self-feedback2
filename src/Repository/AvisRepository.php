@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Avis;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Avis|null find($id, $lockMode = null, $lockVersion = null)
@@ -106,17 +107,40 @@ class AvisRepository extends ServiceEntityRepository
     }
 
 
-    public function trierDate($value)
+    public function trierDate($date1, $date2)
     {
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery(
             'SELECT *
             FROM avis, repas
             WHERE avis.repas_id = repas.id
-            AND repas.date_repas BETWEEN "" AND ""'
-        )->setParameter('value', $value);
+            AND repas.date_repas BETWEEN :value AND :value'
+        )->setParameter('value', $date1)
+         ->setParameter('value', $date2);
         return $query->getOneOrNullResult();
 
+    }
+
+    public function findAll()
+    {
+        $query = $this->createQueryBuilder('a');
+        // $query->andWhere('a.gout = :val')
+        // $query->setParameter('val', $value)
+        return $query->getQuery()->getResult();
+    }
+
+    public function findByDates($startDate=null, $endDate=null){      
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT r.date_repas, a.gout, a.diversite, a.chaleur, a.disponibilite, a.proprete, a.acceuil, a.commentaire
+            FROM App\Entity\Avis a
+            INNER JOIN a.repas r
+            WHERE r.date_repas > = :date_repas AND r.date_repas < = :date_repas'
+        )->setParameter('date_repas', "2021-12-01")
+        ->setParameter('date_repas', "2021-12-07");
+
+        return $query->getResult();
     }
     
     // /**

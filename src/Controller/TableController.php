@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use Dompdf\Dompdf;
 use App\Entity\Avis;
 use App\Repository\AvisRepository;
@@ -24,8 +25,12 @@ class TableController extends AbstractController
      */
     public function index(AvisRepository $avisRepository): Response
     {
+        $startDate = new DateTime();        
+        $endDate = new DateTime();
         return $this->render('table/index.html.twig', [
-            'Avis' => $avisRepository->findAll(),
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'Avis' => $avisRepository->findByDates($startDate, $endDate),
         ]);
     }
 
@@ -120,16 +125,17 @@ class TableController extends AbstractController
     }
 
     /**
-     * @Route("/duree", name="table_duree")
+     * @Route("/", name="table_duree")
      */
     public function TriDate(AvisRepository $avisRepository)
     {
         $lesAvis = $avisRepository->findAll();
 
 
-        $response = $this->render('table/duree.html.twig', [
+        $response = $this->render('table/index.html.twig', [
             'date1' => $date1,
             'date2' => $date2,
+
         ]);
 
 

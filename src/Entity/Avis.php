@@ -63,7 +63,7 @@ class Avis
      * @ORM\ManyToOne(targetEntity=Repas::class, inversedBy="Repas")
      */
     private $repas;
-
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -181,5 +181,4 @@ class Avis
         return $this;
     }
 
-   
 }
