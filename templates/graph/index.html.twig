@@ -4,6 +4,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.js"></script>  {#ne pas oublier de dl les fichier et les mettre dans public#}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 {% endblock %}
 
 
@@ -12,10 +13,17 @@
 
 
 {% block body %}
-        <h2 class="mb-4">Les avis</h2>
-{% dump(data_gout) %}
-{% dump(data_diversite) %}
+        <h2 class="mb-4">Les avis du {{startDate|date('d/m/Y')}} au {{endDate|date('d/m/Y')}}</h2>
 
+<form action="{{ path('graph_dashboard') }}" method="POST"> 
+    <label for="start">Afficher du</label>
+
+    <input type="date" id="startDate" name="startDate"   value="{{startDate}}">
+
+    <label for="start">au</label>
+
+    <input type="date" id="endDate" name="endDate"   value="{{endDate}}"><br/><button type ="submit" class="btn btn-success">Appliquer</button></form>
+    <p>Par défaut date du jour</p>
 {# <a class="btn btn-success" href="#" id="downloadPdf">{{'Send PDF'|trans}}</a> #}
 <button class="btn btn-success" onclick="downloadPDF()">PDFversion</button>
 <br/><br/>
@@ -73,38 +81,92 @@ const gout = document.getElementById('Gout').getContext('2d');
 const mesGout = new Chart(gout, {
     type: 'pie',
     data: {{ data_gout|raw }},
-     options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'Goûts'
+    options: {
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Goûts'
+        },
+        tooltip:{
+          enabled: false
+        },
+        datalabels: {
+          color: 'black',
+          anchor: 'end',
+          align: 'start',
+          offset: -10,
+          borderRadius: 25,
+          backgroundColor: (context) => {
+            return context.dataset.backgroundColor;
+          },
+          font:{
+            weight: 'bold',
+            size: '15'
+          },
+          formatter: (value) => {
+            if(value > 0){
+                value = value.toString();
+                value = value.split(/(?=(?:...)*$)/);
+                value = value.join(',');
+                return value + ' étoile';
+            }else{
+              value = "";
+              return value;
+            }
+          }
+        }
       }
-    }
-  },
-  plugins: [bgColor]
+    },
+  plugins: [bgColor, ChartDataLabels],
 });
 
 const diversite = document.getElementById('Diversite').getContext('2d');
 const mesDiversite = new Chart(diversite, {
     type: 'pie',
     data: {{ data_diversite|raw }},
-    options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'Diversité des plats'
+       options: {
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Diversité'
+        },
+        tooltip:{
+          enabled: false
+        },
+        datalabels: {
+          color: 'black',
+          anchor: 'end',
+          align: 'start',
+          offset: -10,
+          borderRadius: 25,
+          backgroundColor: (context) => {
+            return context.dataset.backgroundColor;
+          },
+          font:{
+            weight: 'bold',
+            size: '15'
+          },
+          formatter: (value) => {
+            if(value > 0){
+                value = value.toString();
+                value = value.split(/(?=(?:...)*$)/);
+                value = value.join(',');
+                return value + ' étoile';
+            }else{
+              value = "";
+              return value;
+            }
+          }
+        }
       }
-    }
-  },
-  plugins: [bgColor]
+    },
+  plugins: [bgColor, ChartDataLabels],
 });
 
 const chaleur = document.getElementById('Chaleur').getContext('2d');
@@ -112,18 +174,45 @@ const laChaleur = new Chart(chaleur, {
     type: 'pie',
     data: {{ data_chaleur|raw }},
     options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'Chaleur des plats'
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Chaleur'
+        },
+        tooltip:{
+          enabled: false
+        },
+        datalabels: {
+          color: 'black',
+          anchor: 'end',
+          align: 'start',
+          offset: -10,
+          borderRadius: 25,
+          backgroundColor: (context) => {
+            return context.dataset.backgroundColor;
+          },
+          font:{
+            weight: 'bold',
+            size: '15'
+          },
+          formatter: (value) => {
+            if(value > 0){
+                value = value.toString();
+                value = value.split(/(?=(?:...)*$)/);
+                value = value.join(',');
+                return value + ' étoile';
+            }else{
+              value = "";
+              return value;
+            }
+          }
+        }
       }
-    }
-  },
-  plugins: [bgColor]
+    },
+  plugins: [bgColor, ChartDataLabels],
 });
 
 const disponibilite = document.getElementById('Disponibilite').getContext('2d');
@@ -131,18 +220,45 @@ const laDisponibilite = new Chart(disponibilite, {
     type: 'pie',
     data: {{ data_disponibilite|raw }},
     options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'Disponibilité'
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Disponibilite'
+        },
+        tooltip:{
+          enabled: false
+        },
+        datalabels: {
+          color: 'black',
+          anchor: 'end',
+          align: 'start',
+          offset: -10,
+          borderRadius: 25,
+          backgroundColor: (context) => {
+            return context.dataset.backgroundColor;
+          },
+          font:{
+            weight: 'bold',
+            size: '15'
+          },
+          formatter: (value) => {
+            if(value > 0){
+                value = value.toString();
+                value = value.split(/(?=(?:...)*$)/);
+                value = value.join(',');
+                return value + ' étoile';
+            }else{
+              value = "";
+              return value;
+            }
+          }
+        }
       }
-    }
-  },
-  plugins: [bgColor]
+    },
+  plugins: [bgColor, ChartDataLabels],
 });
 
 const proprete = document.getElementById('Proprete').getContext('2d');
@@ -150,18 +266,45 @@ const laProprete = new Chart(proprete, {
     type: 'pie',
     data: {{ data_proprete|raw }},
     options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'Propreté du self'
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Proprete'
+        },
+        tooltip:{
+          enabled: false
+        },
+        datalabels: {
+          color: 'black',
+          anchor: 'end',
+          align: 'start',
+          offset: -10,
+          borderRadius: 25,
+          backgroundColor: (context) => {
+            return context.dataset.backgroundColor;
+          },
+          font:{
+            weight: 'bold',
+            size: '15'
+          },
+          formatter: (value) => {
+            if(value > 0){
+                value = value.toString();
+                value = value.split(/(?=(?:...)*$)/);
+                value = value.join(',');
+                return value + ' étoile';
+            }else{
+              value = "";
+              return value;
+            }
+          }
+        }
       }
-    }
-  },
-  plugins: [bgColor]
+    },
+  plugins: [bgColor, ChartDataLabels],
 });
 
 const accueil = document.getElementById('Accueil').getContext('2d');
@@ -169,18 +312,45 @@ const Laccueil = new Chart(accueil, {
     type: 'pie',
     data: {{ data_accueil|raw }},
     options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'Accueil du self'
-      },
-    }
-  },
-  plugins: [bgColor]
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Accueil'
+        },
+        tooltip:{
+          enabled: false
+        },
+        datalabels: {
+          color: 'black',
+          anchor: 'end',
+          align: 'start',
+          offset: -10,
+          borderRadius: 25,
+          backgroundColor: (context) => {
+            return context.dataset.backgroundColor;
+          },
+          font:{
+            weight: 'bold',
+            size: '15'
+          },
+          formatter: (value) => {
+            if(value > 0){
+                value = value.toString();
+                value = value.split(/(?=(?:...)*$)/);
+                value = value.join(',');
+                return value + ' étoile';
+            }else{
+              value = "";
+              return value;
+            }
+          }
+        }
+      }
+    },
+  plugins: [bgColor, ChartDataLabels],
 });
 
 function downloadPDF(){
@@ -205,17 +375,17 @@ function downloadPDF(){
   let pdf = new jsPDF('portrait');
   pdf.setFontSize(20);
 
-  pdf.text(15,15, "Les avis sur le self")
-  pdf.addImage(GoutImage, 'JPEG', 50, 20, 110, 110);
-  pdf.addImage(DiversiteImage, 'JPEG', 50, 160, 110, 110);
+  pdf.text(15,15, "Les avis sur le self du {{startDate|date('d/m/Y')}} au {{endDate|date('d/m/Y')}} ")
+  pdf.addImage(GoutImage, 'JPEG', 50, 20, 110, 105);
+  pdf.addImage(DiversiteImage, 'JPEG', 50, 160, 110, 105);
   pdf.addPage();
-  pdf.addImage(ChaleurImage, 'JPEG', 50, 20, 110, 110);
-  pdf.addImage(DisponibiliteImage, 'JPEG', 50, 160, 110, 110);
+  pdf.addImage(ChaleurImage, 'JPEG', 50, 20, 110, 105);
+  pdf.addImage(DisponibiliteImage, 'JPEG', 50, 160, 110, 105);
   pdf.addPage();
-  pdf.addImage(PropreteImage, 'JPEG', 50, 20, 110, 110);
-  pdf.addImage(AccueilImage, 'JPEG', 50, 160, 110, 110);
+  pdf.addImage(PropreteImage, 'JPEG', 50, 20, 110, 105);
+  pdf.addImage(AccueilImage, 'JPEG', 50, 160, 110, 105);
 
-  pdf.save('Graphique_Feedback.pdf');
+  pdf.save('Graphique_Feedback_du_{{startDate|date("d/m/Y")}}_au_{{endDate|date("d/m/Y")}}.pdf');
 
 }
 </script>
