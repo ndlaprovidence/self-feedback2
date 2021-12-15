@@ -1,0 +1,19 @@
+<!Doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}QrCode{% endblock %}</title>
+  </head>
+  <style>
+  body{
+      text-align:center;
+  }
+  </style>
+  <body>
+    {% block body %}
+    <img src="{{ data_url }}" />
+    {% endblock %}
+  </body>
+</html>
+
