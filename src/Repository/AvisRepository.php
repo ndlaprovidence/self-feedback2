@@ -20,7 +20,7 @@ class AvisRepository extends ServiceEntityRepository
         parent::__construct($registry, Avis::class);
     }
 
-    public function countgout($value)
+    public function countgout($value, $startDate=null, $endDate=null)
     {
         // return $this->createQueryBuilder('a')
         //     ->andWhere('a.gout = :val')
@@ -31,68 +31,93 @@ class AvisRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT count(a.gout)
+            'SELECT r.date_repas, a.gout, a.diversite, a.chaleur, a.disponibilite, a.proprete, a.acceuil, a.commentaire, count(a.gout)
             FROM App\Entity\Avis a
-            WHERE a.gout = :value'
-        )->setParameter('value', $value);
+            INNER JOIN a.repas r
+            WHERE r.date_repas > = :date_repas_start AND r.date_repas < = :date_repas_end AND a.gout = :value');
+        $query->setParameter('value', $value);
+        $query->setParameter('date_repas_start', $startDate);
+        $query->setParameter('date_repas_end', $endDate);
+
 
         // returns an array of Product objects
         return $query->getOneOrNullResult();   
     }
 
-    public function countdiver($value)
+    public function countdiver($value, $startDate=null, $endDate=null)
     {
         $entityManager = $this->getEntityManager();
 
+
         $query = $entityManager->createQuery(
-            'SELECT count(a.diversite)
+            'SELECT r.date_repas, a.gout, a.diversite, a.chaleur, a.disponibilite, a.proprete, a.acceuil, a.commentaire, count(a.diversite)
             FROM App\Entity\Avis a
-            WHERE a.diversite = :value'
-        )->setParameter('value', $value);
+            INNER JOIN a.repas r
+            WHERE r.date_repas > = :date_repas_start AND r.date_repas < = :date_repas_end AND a.diversite = :value');
+        $query->setParameter('value', $value);
+        $query->setParameter('date_repas_start', $startDate);
+        $query->setParameter('date_repas_end', $endDate);
+
         return $query->getOneOrNullResult();   
     }
     
-    public function countchaleur($value)
+    public function countchaleur($value, $startDate=null, $endDate=null)
     {
         $entityManager = $this->getEntityManager();
+
         $query = $entityManager->createQuery(
-            'SELECT count(a.chaleur)
+            'SELECT r.date_repas, a.gout, a.diversite, a.chaleur, a.disponibilite, a.proprete, a.acceuil, a.commentaire, count(a.chaleur)
             FROM App\Entity\Avis a
-            WHERE a.chaleur = :value'
-        )->setParameter('value', $value);
+            INNER JOIN a.repas r
+            WHERE r.date_repas > = :date_repas_start AND r.date_repas < = :date_repas_end AND a.chaleur = :value');
+        $query->setParameter('value', $value);
+        $query->setParameter('date_repas_start', $startDate);
+        $query->setParameter('date_repas_end', $endDate);
         return $query->getOneOrNullResult();   
     }
 
-    public function countdispo($value)
+    public function countdispo($value, $startDate=null, $endDate=null)
     {
         $entityManager = $this->getEntityManager();
+
         $query = $entityManager->createQuery(
-            'SELECT count(a.disponibilite)
+            'SELECT r.date_repas, a.gout, a.diversite, a.chaleur, a.disponibilite, a.proprete, a.acceuil, a.commentaire, count(a.disponibilite)
             FROM App\Entity\Avis a
-            WHERE a.disponibilite = :value'
-        )->setParameter('value', $value);
+            INNER JOIN a.repas r
+            WHERE r.date_repas > = :date_repas_start AND r.date_repas < = :date_repas_end AND a.disponibilite = :value');
+        $query->setParameter('value', $value);
+        $query->setParameter('date_repas_start', $startDate);
+        $query->setParameter('date_repas_end', $endDate);
         return $query->getOneOrNullResult();   
     }
 
-    public function countpropr($value)
+    public function countpropr($value, $startDate=null, $endDate=null)
     {
         $entityManager = $this->getEntityManager();
+
         $query = $entityManager->createQuery(
-            'SELECT count(a.proprete)
+            'SELECT r.date_repas, a.gout, a.diversite, a.chaleur, a.disponibilite, a.proprete, a.acceuil, a.commentaire, count(a.proprete)
             FROM App\Entity\Avis a
-            WHERE a.proprete = :value'
-        )->setParameter('value', $value);
+            INNER JOIN a.repas r
+            WHERE r.date_repas > = :date_repas_start AND r.date_repas < = :date_repas_end AND a.proprete = :value');
+        $query->setParameter('value', $value);
+        $query->setParameter('date_repas_start', $startDate);
+        $query->setParameter('date_repas_end', $endDate);
         return $query->getOneOrNullResult();   
     }
 
-    public function countaccueil($value)
+    public function countaccueil($value, $startDate=null, $endDate=null)
     {
         $entityManager = $this->getEntityManager();
+
         $query = $entityManager->createQuery(
-            'SELECT count(a.acceuil)
+            'SELECT r.date_repas, a.gout, a.diversite, a.chaleur, a.disponibilite, a.proprete, a.acceuil, a.commentaire, count(a.acceuil)
             FROM App\Entity\Avis a
-            WHERE a.acceuil = :value'
-        )->setParameter('value', $value);
+            INNER JOIN a.repas r
+            WHERE r.date_repas > = :date_repas_start AND r.date_repas < = :date_repas_end AND a.acceuil = :value');
+        $query->setParameter('value', $value);
+        $query->setParameter('date_repas_start', $startDate);
+        $query->setParameter('date_repas_end', $endDate);
         return $query->getOneOrNullResult();   
     }
     public function triergout()

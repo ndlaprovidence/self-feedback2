@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Dompdf\Dompdf;
 use App\Repository\AvisRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,43 +27,52 @@ class GraphController extends AbstractController
     /**
      * @Route("/dashboard", name="graph_dashboard")
      */
-    public function dashboard(AvisRepository $avisRepository)
+    public function dashboard(AvisRepository $avisRepository,Request $request)
     {
-        $gout1 = $avisRepository->countgout(1);
-        $gout2 = $avisRepository->countgout(2);
-        $gout3 = $avisRepository->countgout(3);
-        $gout4 = $avisRepository->countgout(4);
-        $gout5 = $avisRepository->countgout(5);
+        $startDate = $request->get('startDate'); 
+        if ($startDate == null) {
+            $startDate = date('Y-m-d');
+        }       
+        $endDate = $request->get('endDate');        
+        if ($endDate == null) {
+            $endDate = date('Y-m-d');
+        }       
 
-        $diver1 = $avisRepository->countdiver(1);
-        $diver2 = $avisRepository->countdiver(2);
-        $diver3 = $avisRepository->countdiver(3);
-        $diver4 = $avisRepository->countdiver(4);
-        $diver5 = $avisRepository->countdiver(5);
-        
-        $chaleur1 = $avisRepository->countchaleur(1);
-        $chaleur2 = $avisRepository->countchaleur(2);
-        $chaleur3 = $avisRepository->countchaleur(3);
-        $chaleur4 = $avisRepository->countchaleur(4);
-        $chaleur5 = $avisRepository->countchaleur(5);
-        
-        $dispo1 = $avisRepository->countdispo(1);
-        $dispo2 = $avisRepository->countdispo(2);
-        $dispo3 = $avisRepository->countdispo(3);
-        $dispo4 = $avisRepository->countdispo(4);
-        $dispo5 = $avisRepository->countdispo(5);
-        
-        $propr1 = $avisRepository->countpropr(1);
-        $propr2 = $avisRepository->countpropr(2);
-        $propr3 = $avisRepository->countpropr(3);
-        $propr4 = $avisRepository->countpropr(4);
-        $propr5 = $avisRepository->countpropr(5);
+        $gout1 = $avisRepository->countgout(1, $startDate, $endDate);
+        $gout2 = $avisRepository->countgout(2, $startDate, $endDate);
+        $gout3 = $avisRepository->countgout(3, $startDate, $endDate);
+        $gout4 = $avisRepository->countgout(4, $startDate, $endDate);
+        $gout5 = $avisRepository->countgout(5, $startDate, $endDate);
 
-        $accueil1 = $avisRepository->countaccueil(1);
-        $accueil2 = $avisRepository->countaccueil(2);
-        $accueil3 = $avisRepository->countaccueil(3);
-        $accueil4 = $avisRepository->countaccueil(4);
-        $accueil5 = $avisRepository->countaccueil(5);
+        $diver1 = $avisRepository->countdiver(1, $startDate, $endDate);
+        $diver2 = $avisRepository->countdiver(2, $startDate, $endDate);
+        $diver3 = $avisRepository->countdiver(3, $startDate, $endDate);
+        $diver4 = $avisRepository->countdiver(4, $startDate, $endDate);
+        $diver5 = $avisRepository->countdiver(5, $startDate, $endDate);
+        
+        $chaleur1 = $avisRepository->countchaleur(1, $startDate, $endDate);
+        $chaleur2 = $avisRepository->countchaleur(2, $startDate, $endDate);
+        $chaleur3 = $avisRepository->countchaleur(3, $startDate, $endDate);
+        $chaleur4 = $avisRepository->countchaleur(4, $startDate, $endDate);
+        $chaleur5 = $avisRepository->countchaleur(5, $startDate, $endDate);
+        
+        $dispo1 = $avisRepository->countdispo(1, $startDate, $endDate);
+        $dispo2 = $avisRepository->countdispo(2, $startDate, $endDate);
+        $dispo3 = $avisRepository->countdispo(3, $startDate, $endDate);
+        $dispo4 = $avisRepository->countdispo(4, $startDate, $endDate);
+        $dispo5 = $avisRepository->countdispo(5, $startDate, $endDate);
+        
+        $propr1 = $avisRepository->countpropr(1, $startDate, $endDate);
+        $propr2 = $avisRepository->countpropr(2, $startDate, $endDate);
+        $propr3 = $avisRepository->countpropr(3, $startDate, $endDate);
+        $propr4 = $avisRepository->countpropr(4, $startDate, $endDate);
+        $propr5 = $avisRepository->countpropr(5, $startDate, $endDate);
+
+        $accueil1 = $avisRepository->countaccueil(1, $startDate, $endDate);
+        $accueil2 = $avisRepository->countaccueil(2, $startDate, $endDate);
+        $accueil3 = $avisRepository->countaccueil(3, $startDate, $endDate);
+        $accueil4 = $avisRepository->countaccueil(4, $startDate, $endDate);
+        $accueil5 = $avisRepository->countaccueil(5, $startDate, $endDate);
 
         $data_gout = [
             'labels' => ['1 étoiles','2 étoiles','3 étoiles','4 étoiles','5 étoiles'],
@@ -215,7 +225,8 @@ class GraphController extends AbstractController
             'data_disponibilite' => json_encode($data_disponibilite),
             'data_proprete' => json_encode($data_proprete),
             'data_accueil' => json_encode($data_accueil),
-
+            'startDate' => $startDate,
+            'endDate' => $endDate,
             
         ]);
     }
@@ -223,44 +234,52 @@ class GraphController extends AbstractController
     /**
      * @Route("/dashboard/pdf", name="graph_dashboard_pdf")
      */
-    public function ExportPDF(AvisRepository $avisRepository)
+    public function ExportPDF(AvisRepository $avisRepository, Request $request)
     {
-        $gout1 = $avisRepository->countgout(1);
-        $gout2 = $avisRepository->countgout(2);
-        $gout3 = $avisRepository->countgout(3);
-        $gout4 = $avisRepository->countgout(4);
-        $gout5 = $avisRepository->countgout(5);
+        $startDate = $request->get('startDate'); 
+        if ($startDate == null) {
+            $startDate = date('Y-m-d');
+        }       
+        $endDate = $request->get('endDate');        
+        if ($endDate == null) {
+            $endDate = date('Y-m-d');
+        }       
 
-        $diver1 = $avisRepository->countdiver(1);
-        $diver2 = $avisRepository->countdiver(2);
-        $diver3 = $avisRepository->countdiver(3);
-        $diver4 = $avisRepository->countdiver(4);
-        $diver5 = $avisRepository->countdiver(5);
-        
-        $chaleur1 = $avisRepository->countchaleur(1);
-        $chaleur2 = $avisRepository->countchaleur(2);
-        $chaleur3 = $avisRepository->countchaleur(3);
-        $chaleur4 = $avisRepository->countchaleur(4);
-        $chaleur5 = $avisRepository->countchaleur(5);
-        
-        $dispo1 = $avisRepository->countdispo(1);
-        $dispo2 = $avisRepository->countdispo(2);
-        $dispo3 = $avisRepository->countdispo(3);
-        $dispo4 = $avisRepository->countdispo(4);
-        $dispo5 = $avisRepository->countdispo(5);
-        
-        $propr1 = $avisRepository->countpropr(1);
-        $propr2 = $avisRepository->countpropr(2);
-        $propr3 = $avisRepository->countpropr(3);
-        $propr4 = $avisRepository->countpropr(4);
-        $propr5 = $avisRepository->countpropr(5);
+        $gout1 = $avisRepository->countgout(1, $startDate, $endDate);
+        $gout2 = $avisRepository->countgout(2, $startDate, $endDate);
+        $gout3 = $avisRepository->countgout(3, $startDate, $endDate);
+        $gout4 = $avisRepository->countgout(4, $startDate, $endDate);
+        $gout5 = $avisRepository->countgout(5, $startDate, $endDate);
 
-        $accueil1 = $avisRepository->countaccueil(1);
-        $accueil2 = $avisRepository->countaccueil(2);
-        $accueil3 = $avisRepository->countaccueil(3);
-        $accueil4 = $avisRepository->countaccueil(4);
-        $accueil5 = $avisRepository->countaccueil(5);
+        $diver1 = $avisRepository->countdiver(1, $startDate, $endDate);
+        $diver2 = $avisRepository->countdiver(2, $startDate, $endDate);
+        $diver3 = $avisRepository->countdiver(3, $startDate, $endDate);
+        $diver4 = $avisRepository->countdiver(4, $startDate, $endDate);
+        $diver5 = $avisRepository->countdiver(5, $startDate, $endDate);
+        
+        $chaleur1 = $avisRepository->countchaleur(1, $startDate, $endDate);
+        $chaleur2 = $avisRepository->countchaleur(2, $startDate, $endDate);
+        $chaleur3 = $avisRepository->countchaleur(3, $startDate, $endDate);
+        $chaleur4 = $avisRepository->countchaleur(4, $startDate, $endDate);
+        $chaleur5 = $avisRepository->countchaleur(5, $startDate, $endDate);
+        
+        $dispo1 = $avisRepository->countdispo(1, $startDate, $endDate);
+        $dispo2 = $avisRepository->countdispo(2, $startDate, $endDate);
+        $dispo3 = $avisRepository->countdispo(3, $startDate, $endDate);
+        $dispo4 = $avisRepository->countdispo(4, $startDate, $endDate);
+        $dispo5 = $avisRepository->countdispo(5, $startDate, $endDate);
+        
+        $propr1 = $avisRepository->countpropr(1, $startDate, $endDate);
+        $propr2 = $avisRepository->countpropr(2, $startDate, $endDate);
+        $propr3 = $avisRepository->countpropr(3, $startDate, $endDate);
+        $propr4 = $avisRepository->countpropr(4, $startDate, $endDate);
+        $propr5 = $avisRepository->countpropr(5, $startDate, $endDate);
 
+        $accueil1 = $avisRepository->countaccueil(1, $startDate, $endDate);
+        $accueil2 = $avisRepository->countaccueil(2, $startDate, $endDate);
+        $accueil3 = $avisRepository->countaccueil(3, $startDate, $endDate);
+        $accueil4 = $avisRepository->countaccueil(4, $startDate, $endDate);
+        $accueil5 = $avisRepository->countaccueil(5, $startDate, $endDate);
         $data_gout = [
             'labels' => ['1 étoiles','2 étoiles','3 étoiles','4 étoiles','5 étoiles'],
             'datasets' => [
@@ -415,6 +434,9 @@ class GraphController extends AbstractController
             'data_disponibilite' => json_encode($data_disponibilite),
             'data_proprete' => json_encode($data_proprete),
             'data_accueil' => json_encode($data_accueil),
+
+            'startDate' => $startDate,
+            'endDate' => $endDate,
         ]);
 
         $dompdf->loadHtml($contents);
