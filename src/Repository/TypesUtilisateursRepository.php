@@ -19,22 +19,21 @@ class TypesUtilisateursRepository extends ServiceEntityRepository
         parent::__construct($registry, TypesUtilisateurs::class);
     }
 
-    // /**
-    //  * @return TypesUtilisateurs[] Returns an array of TypesUtilisateurs objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return TypesUtilisateurs[] Returns an array of TypesUtilisateurs objects
+     * @return TypesRepas[]
+     */
+    public function findOneById($id)
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('t.id = :id')
+            ->setParameter('id', $id)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
         ;
     }
-    */
+    
+    
 
     /*
     public function findOneBySomeField($value): ?TypesUtilisateurs

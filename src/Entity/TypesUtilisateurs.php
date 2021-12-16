@@ -39,12 +39,12 @@ class TypesUtilisateurs
         return $this->id;
     }
 
-    public function getLibelleT(): string
+    public function getLibelleT(): ?string
     {
         return $this->libelle_t;
     }
 
-    public function setLibelleT(string $libelle_t): self
+    public function setLibelleT(?string $libelle_t): self
     {
         $this->libelle_t = $libelle_t;
 
