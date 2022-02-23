@@ -37,3 +37,4 @@ security:
     - { path: ^/user, roles: ROLE_ADMIN }
     - { path: ^/graph, roles: ROLE_ADMIN }
     - { path: ^/table, roles: ROLE_ADMIN }
+    - { path: ^/admin, roles: ROLE_ADMIN }

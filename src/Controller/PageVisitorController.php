@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/visitor")
+ * @Route("/")
  */
 class PageVisitorController extends AbstractController
 {
