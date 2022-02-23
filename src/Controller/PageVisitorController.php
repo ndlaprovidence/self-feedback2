@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Avis;
+use App\Entity\Repas;
 use App\Form\PageVisitorType;
 use App\Entity\TypesUtilisateurs;
 use App\Repository\TypesRepasRepository;
@@ -64,8 +66,14 @@ class PageVisitorController extends AbstractController
         $avis->setChaleur($request->get('note-chaleur'));
         $avis->setCommentaire($request->get('commentaire'));
         $avis->setTypesUtilisateurs($unTypesUtilisateurs);
-        $avis->setRepas($unTypesRepas);
-        dump();
+
+        $repas = new Repas();
+        $repas->setDateRepas(new DateTime);
+        $repas->setHeure(new DateTime);
+        $repas->setTypesRepas($unTypesRepas);
+        $entityManager->persist($repas);
+
+        $avis->setRepas($repas);
         $entityManager->persist($avis);
         $entityManager->flush();
         return $this->render('page_visitor/save.html.twig');    
