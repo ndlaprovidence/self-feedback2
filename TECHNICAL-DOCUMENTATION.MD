@@ -1,8 +1,8 @@
 ### SYMFONY     VERSION 4.4.35 ###
 
-![Self-Feedback](https://raw.githubusercontent.com/ndlaprovidence/self-feedback2/main/public/images/image.jpg)
+![Self-Feedback](https://raw.githubusercontent.com/ndlaprovidence/self-feedback2/main/public/images/feedback-logo.jpg)
 
-## Description
+## A) Description
 Self-feedback is an online website software, a PHP web application developed using the Symfony framework (version 5.4.2).
 He has for objectif to send opinion to a meal with a commentary and a specifics opinions to different criteria. 
 It also aims to be able to retrieve its opinions in various form to analyze them.
@@ -10,10 +10,23 @@ It also aims to be able to retrieve its opinions in various form to analyze them
 To do this, we made a site in 2 distinct parts:
 - A part for users who will only give a review in a form
 - A second part, a panel for administrators who can retrieve the reviews in the form of a table and graph that can be consulted on the site or downloaded in PDF format. We have made this part limited to access with a login form with username and password securized.
+- 
 
 Thanks to [Symfony](https://symfony.com/)
 
-## Installation
+### 1) Screenshot of the page to give your opinion
+(https://raw.githubusercontent.com/ndlaprovidence/self-feedback2/main/public/images/visitor-view.jpg)
+
+### 2) Screenshot of the login page to access admin panel
+(https://raw.githubusercontent.com/ndlaprovidence/self-feedback2/main/public/images/login-view.jpg)
+
+### 3) Screenshot of the page of all reviews
+(https://raw.githubusercontent.com/ndlaprovidence/self-feedback2/main/public/images/avis-view.jpg)
+
+### 4) Screenshot of the page of all reviews in graphics format 
+(https://raw.githubusercontent.com/ndlaprovidence/self-feedback2/main/public/images/graphics-view.jpg)
+
+## B) Installation
 
 ### 1) Get all source files
 
