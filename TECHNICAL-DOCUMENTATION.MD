@@ -2,7 +2,11 @@
 
 ![Self-Feedback](https://raw.githubusercontent.com/ndlaprovidence/self-feedback2/main/public/images/feedback-logo.jpg)
 
+
+
 ## A) Description
+
+
 Self-feedback is an online website software, a PHP web application developed using the Symfony framework (version 5.4.2).
 He has for objectif to send opinion to a meal with a commentary and a specifics opinions to different criteria. 
 It also aims to be able to retrieve its opinions in various form to analyze them.
@@ -26,7 +30,10 @@ Thanks to [Symfony](https://symfony.com/)
 ### 4) Screenshot of the page of all reviews in graphics format 
 ![Self-Feedback](https://raw.githubusercontent.com/ndlaprovidence/self-feedback2/main/public/images/graphics-view.png)
 
+
+
 ## B) Installation
+
 
 ### 1) Get all source files
 
