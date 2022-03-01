@@ -1,75 +1,81 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Panel Administrateur{% endblock %}
+{% block title %}Panel Administrateur
+{% endblock %}
 
 {% block body %}
 
 
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
 
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div id="content" class="p-4 p-md-5 pt-5">
+		<h2 class="mb-4">Les Avis</h2>
+		<table class="table table-striped table-bordered">
+			<thead class="thead-dark">
+				<tr>
+					<th>Date
+					</th>
+					<th>Goût
+					</th>
+					<th>Diversité</th>
+					<th>Chaleur</th>
+					<th>Disponibilité</th>
+					<th>Propreté</th>
+					<th>Acceuil</th>
+					<th>Commentaires</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for avis in Avis %}
+					<tr>
+						<td>
+							{% if avis.date_repas %}
+								{{ avis.date_repas|date('d/m/Y') }}
+							{% endif %}
+						</td>
+						<td>{{ avis.gout }}</td>
+						<td>{{ avis.diversite }}</td>
+						<td>{{ avis.chaleur }}</td>
+						<td>{{ avis.disponibilite }}</td>
+						<td>{{ avis.proprete }}</td>
+						<td>{{ avis.acceuil }}</td>
+						<td>{{ avis.commentaire }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 
-        <div id="content" class="p-4 p-md-5 pt-5">
-        <h2 class="mb-4">Les Avis</h2>
-        <table class="table table-striped table-bordered">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Date </th>
-                        <th>Goût </th>
-                        <th>Diversité</th>
-                        <th>Chaleur</th>
-                        <th>Disponibilité</th>
-                        <th>Propreté</th>
-                        <th>Acceuil</th>
-                        <th>Commentaires</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for avis in Avis %}
-                    <tr>
-                        <td>
-                            {% if avis.date_repas %}
-                                {{ avis.date_repas|date('d/m/Y') }}
-                            {% endif %}
-                        </td>
-                        <td>{{ avis.gout }}</td>
-                        <td>{{ avis.diversite }}</td>
-                        <td>{{ avis.chaleur }}</td>
-                        <td>{{ avis.disponibilite }}</td>
-                        <td>{{ avis.proprete }}</td>
-                        <td>{{ avis.acceuil }}</td>
-                        <td>{{ avis.commentaire }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-                </table>
-        
 
-    <form action="{{ path('table_index') }}" method="POST"> 
-    <label for="start">Afficher du</label>
+		<form action="{{ path('table_index') }}" name="table" method="POST">
+			<label for="start">Afficher du</label>
 
-    <input type="date" id="startDate" name="startDate"   value="{{startDate}}">
+			<input type="date" id="startDate" name="startDate" value="{{startDate}}">
 
-    <label for="start">au</label>
+			<label for="start">au</label>
 
-    <input type="date" id="endDate" name="endDate"   value="{{endDate}}"><br/><button type ="submit" class="btn btn-success">Appliquer</button></form>
-    <p>Par défaut date du jour</p>
+			<input type="date" id="endDate" name="endDate" value="{{endDate}}"><br>
 
-    </br>
-        {# <label for="pet-select">Selectionner une durée</label>
+				<button onclick="document.table.action='{{ path('table_index') }}'" class="btn btn-success">Appliquer</button>
 
-        <select name="SelectDuree" id="SelectDuree">
-            <option value="all">tout</option>
-            <option value="1day">1 jour</option>
-            <option value="1weeks">1 semaine</option>
-            <option value="2weeks">2 semaines</option>
-            <option value="1month">1 mois</option>
-            <option value="1years">1 ans</option>
-        </select></br> #}
 
-        <a class="btn btn-success" href="{{ path('table_sendexcel') }}">{{'Send Excel'|trans}}</a>
-        <a class="btn btn-success" href="{{ path('table_pdf') }}">{{'Send PDF'|trans}}</a>
-        
-{% endblock %}
+				<p>Par défaut date du jour</p>
+
+			</br>
+
+			<button class="btn btn-success" onclick="document.table.action='{{ path('table_pdf') }}'" class="btn btn-success">Telecharger PDF</button>
+
+
+		</form>
+
+	{% endblock %}

@@ -1,30 +1,16 @@
 
 
 
-<h2 class="mb-4">Les Avis</h2>
+<h2 class="mb-4">Les commentaires du {{startDate|date('d/m/Y')}} au {{endDate|date('d/m/Y')}}</h2>
 <table style="font-size:13px"  width="78%" height="263" align ="center" class = "tableau">
     <thead class="thead-dark">
                     <tr>
-                        <th width="60" align="center">ID</th>
-                        <th width="60" align="center">Gout des plats</th>
-                        <th width="60" align="center">Diversité des plats</th>
-                        <th width="60" align="center">Chaleur des plats</th>
-                        <th width="60" align="center">Disponibilité des plats</th>
-                        <th width="60" align="center">Acceuil</th>
-                        <th width="60" align="center">Propreté</th>
                         <th width="60" align="center">Commentaires des plats</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for avis in les_avis%}
+                    {% for avis in les_avis %}
                         <tr>
-                            <td width="60" align="center">{{ avis.id }}</td>
-                            <td width="60" align="center">{{ avis.gout }}</td>
-                            <td width="60" align="center">{{ avis.diversite }}</td>
-                            <td width="50" align="center">{{ avis.chaleur }}</td>
-                            <tD width="60" align="center">{{ avis.disponibilite}}</td>
-                            <td width="60" align="center">{{ avis.proprete}}</td>
-                            <td width="60" align="center">{{ avis.acceuil}}</td>
                             <td width="60" align="center">{{ avis.commentaire}}</td>
                         </tr>
                     {% endfor %}   
