@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20211122170002 extends AbstractMigration
+final class Version20220301180603 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,12 +20,12 @@ final class Version20211122170002 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE avis ADD gout INT NOT NULL, ADD diversite INT NOT NULL, ADD chaleur INT NOT NULL, ADD disponibilite INT NOT NULL, ADD proprete INT NOT NULL, ADD acceuil INT NOT NULL, ADD commentaire VARCHAR(255) NOT NULL');
+        $this->addSql('CREATE TABLE qr_code_token (id INT AUTO_INCREMENT NOT NULL, date VARCHAR(255) NOT NULL, token VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE avis DROP gout, DROP diversite, DROP chaleur, DROP disponibilite, DROP proprete, DROP acceuil, DROP commentaire');
+        $this->addSql('DROP TABLE qr_code_token');
     }
 }
