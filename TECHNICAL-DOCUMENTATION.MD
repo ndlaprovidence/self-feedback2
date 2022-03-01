@@ -15,16 +15,16 @@ To do this, we made a site in 2 distinct parts:
 Thanks to [Symfony](https://symfony.com/)
 
 ### 1) Screenshot of the page to give your opinion
-![Self-Feedback](https://raw.githubusercontent.com/ndlaprovidence/self-feedback2/main/public/images/visitor-view.jpg)
+![Self-Feedback](https://raw.githubusercontent.com/ndlaprovidence/self-feedback2/main/public/images/visitor-view.png)
 
 ### 2) Screenshot of the login page to access admin panel
-![Self-Feedback](https://raw.githubusercontent.com/ndlaprovidence/self-feedback2/main/public/images/login-view.jpg)
+![Self-Feedback](https://raw.githubusercontent.com/ndlaprovidence/self-feedback2/main/public/images/login-view.png)
 
 ### 3) Screenshot of the page of all reviews
-![Self-Feedback](https://raw.githubusercontent.com/ndlaprovidence/self-feedback2/main/public/images/avis-view.jpg)
+![Self-Feedback](https://raw.githubusercontent.com/ndlaprovidence/self-feedback2/main/public/images/avis-view.png)
 
 ### 4) Screenshot of the page of all reviews in graphics format 
-![Self-Feedback](https://raw.githubusercontent.com/ndlaprovidence/self-feedback2/main/public/images/graphics-view.jpg)
+![Self-Feedback](https://raw.githubusercontent.com/ndlaprovidence/self-feedback2/main/public/images/graphics-view.png)
 
 ## B) Installation
 
