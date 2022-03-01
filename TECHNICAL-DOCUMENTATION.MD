@@ -7,6 +7,10 @@ Self-feedback is an online website software, a PHP web application developed usi
 He has for objectif to send opinion to a meal with a commentary and a specifics opinions to different criteria. 
 It also aims to be able to retrieve its opinions in various form to analyze them.
 
+To do this, we made a site in 2 distinct parts:
+- A part for users who will only give a review in a form
+- A second part, a panel for administrators who can retrieve the reviews in the form of a table and graph that can be consulted on the site or downloaded in PDF format. We have made this part limited to access with a login form with username and password securized.
+
 Thanks to [Symfony](https://symfony.com/)
 
 ## Installation
