@@ -5,14 +5,23 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\Avis;
 use App\Entity\Repas;
+use Endroid\QrCode\QrCode;
+use App\Entity\QrCodeToken;
 use App\Form\PageVisitorType;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\Color\Color;
 use App\Entity\TypesUtilisateurs;
+use Endroid\QrCode\Writer\PngWriter;
+use Endroid\QrCode\Encoding\Encoding;
 use App\Repository\TypesRepasRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\QrCodeTokenRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\TypesUtilisateursRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -21,21 +30,89 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PageVisitorController extends AbstractController
 {
     /**
-     * @Route("/", name="visitor_index")
+     * @Route("/", name="qrcode_visitor")
      */
-    public function index(EntityManagerInterface $manager,Request $request): Response
+    public function index(QrCodeTokenRepository $qrCodeTokenRepository,EntityManagerInterface $manager,Request $request): Response
     {
+        $date = date("d-m-y");
+        $req = $qrCodeTokenRepository->tokenExist($date);
+       
+        if ( $req != null){
+            // si token existe
+            $token = $req->getToken(); 
+        } else {
+            // si token existe pas
+            $token = bin2hex(random_bytes(50));
+            $qrCodeToken = new qrCodeToken();
+            $qrCodeToken->setDate($date);
+            $qrCodeToken->setToken($token);
+            $manager->persist($qrCodeToken);
+            $manager->flush();
+        }
+        
+        
+       
+       $ip = $request->server->get('SERVER_NAME');
+       
+       $url = 'https://'.$ip.'/form?token='.$token;
+       
+        $writer = new PngWriter();
+        $qrCode = QrCode::create($url)
+        ->setEncoding(new Encoding('UTF-8'))
+        ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
+        ->setSize(500)
+        ->setMargin(10)
+        ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
+        ->setForegroundColor(new Color(0, 0, 0))
+        ->setBackgroundColor(new Color(255, 255, 255));
+
+        $logo = Logo::create('images/ndlp.jpg')
+        ->setResizeToWidth(50);
+
+        //$label = Label::create('Label')
+        //->setTextColor(new Color(255, 0, 0));
+
+        $result = $writer->write($qrCode, $logo);
+  
+
+        $dataUri = $result->getDataUri();
+            
         $form = $this->createForm(PageVisitorType::class);
         $form->handlerequest($request);
         $avis = $form->getData();
-       
+        return $this->render('page_visitor/qrcode.html.twig',[
+            'form' => $form->createView(),
+            'data_url' => $dataUri,
 
+        ]);    
+    }
+    /**
+     * @Route("/form", name="visitor_index")
+     */
+    public function form(QrCodeTokenRepository $qrCodeTokenRepository,EntityManagerInterface $manager,Request $request): Response
+    {
+        $token = $_GET['token'];
+        $date = date("d-m-y");
+         if ($qrCodeTokenRepository->tokenVerify($date)->getToken() != $token){
+
+            return $this->redirectToRoute("error_token");
+         } 
+        
+        $form = $this->createForm(PageVisitorType::class);
+        $form->handlerequest($request);
         return $this->render('page_visitor/index.html.twig',[
             'form' => $form->createView(),
 
         ]);    
     }
-    
+        /**
+     * @Route("/tokenError", name="error_token")
+     */
+    public function errorToken(QrCodeTokenRepository $qrCodeTokenRepository,EntityManagerInterface $manager,Request $request): Response
+    {
+        return $this->render('page_visitor/error-token.html.twig',[
+        ]);    
+    }
     /**
      * @Route("/save", name="visitor_save")
      */

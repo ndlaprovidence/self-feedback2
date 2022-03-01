@@ -11,6 +11,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.10",
         "dompdf/dompdf": "^1.1",
+        "endroid/qr-code-bundle": "^4.0",
         "fpdf/fpdf": "^1.83",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpoffice/phpspreadsheet": "^1.19",
@@ -55,7 +56,12 @@
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "symfony/flex": true,
+            "endroid/installer": true
+        }
     },
     "autoload": {
         "psr-4": {
