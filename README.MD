@@ -65,3 +65,6 @@ Here is initial credentials of the admin user.
 Here is initial credentials of the super-admin user.
  - Username : superadmin
  - Password : superadmin
+
+Here is initial credentials of the pin code to access QRcode.
+ - Pin code : 1234 
