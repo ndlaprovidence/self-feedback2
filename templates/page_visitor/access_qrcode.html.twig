@@ -28,19 +28,19 @@
 				<div class="card">
 					<div class="card-header">
 						CODE PIN
-					</div>
-                    {{form_start(form)}}
-                   
+					</div> {{form_start(form)}}
+
 					<div class="card-body">
-							<h5 class="card-title">Insérer le code pin</h5>
-							<div class="input-group mb-3 w-25 ">
-                            {{form_widget(form.pin)}}
-							</div>
-                            {{form_widget(form.submit)}}
-					</div>
-                    {{form_end(form)}}
+						<h5 class="card-title">Insérer le code pin</h5>
+						<div class="input-group mb-3 w-25 "> {{form_widget(form.pin)}}
+						</div> {{form_widget(form.submit)}}
+					</div> {{form_end(form)}}
 				</div>
 			</div>
+			{% for message in app.flashes('danger') %}
+				<div class="alert alert-danger"> {{ message }}
+				</div>
+			{% endfor %}
 		{% endblock %}
 	</body>
 </html>

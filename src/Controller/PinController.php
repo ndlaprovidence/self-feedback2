@@ -27,7 +27,8 @@ class PinController extends AbstractController
             
             $session = $requestStack->getSession();
             $session->set('pinOK', 'pinOK');
-            
+            $this->addFlash('danger', 'Mauvais code pin !');
+
             if ($pinRepository->searchPin($pin) != null){
                 return $this->redirectToRoute("qrcode_visitor");
             }
