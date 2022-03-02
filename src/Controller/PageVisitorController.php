@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\TypesUtilisateursRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,8 +33,14 @@ class PageVisitorController extends AbstractController
     /**
      * @Route("/", name="qrcode_visitor")
      */
-    public function index(QrCodeTokenRepository $qrCodeTokenRepository,EntityManagerInterface $manager,Request $request): Response
+    public function index(RequestStack $requestStack, QrCodeTokenRepository $qrCodeTokenRepository,EntityManagerInterface $manager,Request $request): Response
     {
+        $session = $requestStack->getSession();
+        $pinOK = $session->get('pinOK');
+        if (!isset ($pinOK)){
+             return $this->redirectToRoute("app_pin");
+        } 
+        
         $date = date("d-m-y");
         $req = $qrCodeTokenRepository->tokenExist($date);
        
