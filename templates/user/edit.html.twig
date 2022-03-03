@@ -3,10 +3,11 @@
 {% block title %}Modifier{% endblock %}
 
 {% block body %}
+<div id="content" class="p-4 p-md-5 pt-5">
     <h1>Modifier utilisateur</h1>
 
     {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
 <a class="btn btn-secondary" href="{{ path('user_index') }}">Retour</a>
-
+</div>
 {% endblock %}
 

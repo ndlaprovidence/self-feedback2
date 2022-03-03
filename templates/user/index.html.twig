@@ -2,6 +2,7 @@
 {% block title %}Utilisateurs{% endblock %}
 
 {% block body %}
+<div id="content" class="p-4 p-md-5 pt-5">
     <h1>Utilisateurs</h1>
 
     <table class="table">
@@ -32,4 +33,5 @@
         </tbody>
     </table>
     <a class="btn btn-dark" href="{{ path('user_new') }}">Nouvel utilisateur</a>
+    </div>
 {% endblock %}
