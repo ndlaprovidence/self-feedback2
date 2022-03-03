@@ -22,7 +22,9 @@ class PinQrCodeType extends AbstractType
         $builder
         ->add('submit',SubmitType::class, [
             'attr' => ['class' => 'btn btn-primary',
-        ]])
+        ],
+        'label' => 'Accédez au QRCode'
+        ])
     ;
     }
 
