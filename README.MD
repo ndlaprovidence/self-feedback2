@@ -1,3 +1,6 @@
+[![Build Status](https://api.travis-ci.com/ndlaprovidence/self-feedback2.svg?branch=main)](https://travis-ci.com/ndlaprovidence/self-feedback2)
+
+
 ### SYMFONY     VERSION 4.4.35 ###
 
 ![Self-Feedback](https://raw.githubusercontent.com/ndlaprovidence/self-feedback2/main/public/images/feedback-logo.jpg)
